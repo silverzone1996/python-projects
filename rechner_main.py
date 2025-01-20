@@ -33,7 +33,7 @@ def hauptprogramm(task):
     return task
 
 
-name = input("Hallo, ich bin der Taschenrechner 2000. Wie heißen Sie? ")
+name = input("Hallo, ich bin der Taschenrechner 2000. Wie heißt du? ")
 print(f'Hallo {name.capitalize()}! :)\nZum Beenden einfach "esc" schreiben')
 
 while True:

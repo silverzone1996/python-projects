@@ -12,7 +12,7 @@ def enter_click():
 # Hauptfenster erstellen
 root = tk.Tk()
 root.title("Tastenanzeige")
-root.geometry("400x520")
+root.geometry("400x500")
 
 # Abstand oben hinzufügen
 top_space = tk.Frame(root, height=100)
