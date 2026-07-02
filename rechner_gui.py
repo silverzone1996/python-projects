@@ -1,4 +1,5 @@
 import tkinter as tk
+import rechner_main  # Importiere dein rechner_main-Skript
 
 def button_click(number):
     current_text = display_var.get()
@@ -6,36 +7,39 @@ def button_click(number):
     display_var.set(new_text)
 
 def enter_click():
-    print("Eingabe: " + display_var.get())
-    display_var.set("")
+    eingabe = display_var.get()
+    result = rechner_main.berechne_eingabe(eingabe)  # Aufruf der Berechnungsfunktion
+    print("Ergebnis: " + str(result))  # Zeigt das Ergebnis an (kannst du in der GUI anzeigen)
+    display_var.set("")  # Leert die Anzeigeleiste nach der Berechnung
 
 # Hauptfenster erstellen
 root = tk.Tk()
-root.title("Tastenanzeige")
+root.title("Taschenrechner")
 root.geometry("400x500")
+
+# Variable für die Anzeigeleiste
+display_var = tk.StringVar()
+
+# Anzeigeleiste erstellen
+display_label = tk.Label(root, textvariable=display_var, font=("Helvetica", 16), width=15)
+display_label.pack()
+
+# Enter-Taste erstellen
+enter_button = tk.Button(root, text="Enter", command=enter_click, font=("Helvetica", 16), width=10, height=2)
+enter_button.pack()
 
 # Abstand oben hinzufügen
 top_space = tk.Frame(root, height=100)
 top_space.pack()
 
-# Variable für die Anzeigeleiste
-display_var = tk.StringVar()
 
 # Rahmen für die Anzeigeleiste und die Enter-Taste erstellen
 top_frame = tk.Frame(root)
 top_frame.pack()
 
-# Anzeigeleiste erstellen
-display_label = tk.Label(top_frame, textvariable=display_var, font=("Helvetica", 16), width=15)
-display_label.pack(side=tk.LEFT)
-
-# Rahmen für die Enter-Taste erstellen
+# Rahmen für die Enter-Taste rechts neben der Anzeige
 enter_frame = tk.Frame(top_frame)
 enter_frame.pack(side=tk.RIGHT)
-
-# Enter-Taste erstellen
-enter_button = tk.Button(enter_frame, text="Enter", command=enter_click, font=("Helvetica", 16))
-enter_button.pack()
 
 # Rahmen für die Tasten erstellen
 button_frame = tk.Frame(root)
@@ -69,18 +73,26 @@ button8.grid(row=2, column=1)
 button9 = tk.Button(button_frame, text="9", command=lambda: button_click(9), font=("Helvetica", 22), width=5, height=2)
 button9.grid(row=2, column=2)
 
-# Operator-Tasten erstellen
-plus_button = tk.Button(button_frame, text="+", command=lambda: button_click('+'), font=("Helvetica", 20), width=5, height=1)
+# Operator-Tasten erstellen (blaue Tasten)
+plus_button = tk.Button(button_frame, text="+", command=lambda: button_click('+'), font=("Helvetica", 20), width=5, height=2, bg="blue", fg="white")
 plus_button.grid(row=0, column=3)
 
-minus_button = tk.Button(button_frame, text="-", command=lambda: button_click('-'), font=("Helvetica", 20), width=5, height=1)
+minus_button = tk.Button(button_frame, text="-", command=lambda: button_click('-'), font=("Helvetica", 20), width=5, height=2, bg="blue", fg="white")
 minus_button.grid(row=1, column=3)
 
-multiply_button = tk.Button(button_frame, text="*", command=lambda: button_click('*'), font=("Helvetica", 20), width=5, height=1)
+multiply_button = tk.Button(button_frame, text="*", command=lambda: button_click('*'), font=("Helvetica", 20), width=5, height=2, bg="blue", fg="white")
 multiply_button.grid(row=2, column=3)
 
-divide_button = tk.Button(button_frame, text="/", command=lambda: button_click('/'), font=("Helvetica", 20), width=5, height=1)
+divide_button = tk.Button(button_frame, text="/", command=lambda: button_click('/'), font=("Helvetica", 20), width=5, height=2, bg="blue", fg="white")
 divide_button.grid(row=3, column=3)
+
+# Neue Tasten für "(" und ")"
+left_paren_button = tk.Button(button_frame, text="(", command=lambda: button_click('('), font=("Helvetica", 22), width=5, height=2)
+left_paren_button.grid(row=3, column=0)
+
+right_paren_button = tk.Button(button_frame, text=")", command=lambda: button_click(')'), font=("Helvetica", 22), width=5, height=2)
+right_paren_button.grid(row=3, column=2)
 
 # Hauptereignisschleife starten
 root.mainloop()
+
